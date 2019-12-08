@@ -1,8 +1,8 @@
 from config import create_api
 import tweepy
 
-def batch_delete(api):
 
+def batch_delete(api):
 
     for status in tweepy.Cursor(api.user_timeline).items():
         try:

@@ -1,3 +1,6 @@
+"""
+For each tweet, if you’re not the tweet author, it will mark the tweet as Liked and then retweet it.
+"""
 
 import tweepy
 import logging
@@ -6,6 +9,7 @@ import json
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger()
+
 
 class FavRetweetListener(tweepy.StreamListener):
     def __init__(self, api):
@@ -34,11 +38,13 @@ class FavRetweetListener(tweepy.StreamListener):
     def on_error(self, status):
         logger.error(status)
 
+
 def main(keywords):
     api = create_api()
     tweets_listener = FavRetweetListener(api)
     stream = tweepy.Stream(api.auth, tweets_listener)
     stream.filter(track=keywords, languages=["en"])
+
 
 if __name__ == "__main__":
     main(["datascience"])
